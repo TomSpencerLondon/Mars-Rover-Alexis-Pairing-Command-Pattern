@@ -1,6 +1,7 @@
 package com.codurance.mars_rover;
 
 public class Rover {
+  public static final String DELIMITER = ":";
   private int x;
   private int y;
   private String direction;
@@ -16,16 +17,57 @@ public class Rover {
     String[] commandsArray = commands.split("");
     int count = 0;
     for (String c : commandsArray) {
-      count = rotateLeft(count, c);
+      if (c.equals("L")) {
+        rotateLeft(count);
+      }
+
+      if (c.equals("R")) {
+        count = rotateRight(count);
+      }
     }
 
-    return x + ":" + y + ":" + direction;
+    return lastPosition();
   }
 
-  private int rotateLeft(int count, String command) {
-    if (command.equals("L")) {
-      direction = directions[++count % 4];
+  private int rotateRight(int count) {
+    count--;
+    if (count < 0){
+      count = 3;
     }
+    direction = directions[count];
     return count;
+  }
+
+  private void rotateLeft(int count) {
+    direction = Direction.valueOf(direction).getLeft();
+  }
+
+  private String lastPosition() {
+    return x + DELIMITER + y + DELIMITER + direction;
+  }
+
+  private enum Direction {
+
+    N("W", "E"),
+    W("S", "N"),
+    S("E", "W"),
+    E("N", "S");
+
+
+    private final String left;
+    private final String right;
+
+    Direction(String left, String right) {
+      this.left = left;
+      this.right = right;
+    }
+
+    public String getLeft() {
+      return left;
+    }
+
+    public String getRight() {
+      return right;
+    }
   }
 }
