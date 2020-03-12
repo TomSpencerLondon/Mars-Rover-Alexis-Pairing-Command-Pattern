@@ -46,4 +46,16 @@ public class RoverShould {
 
     assertEquals(position, result);
   }
+
+  @ParameterizedTest
+  @CsvSource({
+          "RLRR, 0:0:S"
+  })
+  public void rotate_left_and_right(String instructions, String position) {
+    Rover rover = new Rover(0, 0, "N");
+    String result = rover.execute(instructions);
+
+    assertEquals(position, result);
+  }
+
 }

@@ -2,21 +2,17 @@ package com.codurance.mars_rover;
 
 public class Rover {
   public static final String DELIMITER = ":";
-  private int x;
-  private int y;
-  private String direction;
-  private final String[] directions = new String[]{"N", "W", "S", "E"};
+  private final Position position;
 
   public Rover(int x, int y, String direction) {
-    this.x = x;
-    this.y = y;
-    this.direction = direction;
+    this.position = new Position(x, y, direction);
   }
 
   public String execute(String commands) {
     String[] commandsArray = commands.split("");
     for (String c : commandsArray) {
       if (c.equals("L")) {
+
         rotateLeft();
       }
 
@@ -29,24 +25,22 @@ public class Rover {
   }
 
   private void rotateLeft() {
-    direction = Direction.valueOf(direction).getLeft();
+    position.setDirection(Direction.valueOf(position.getDirection()).getLeft());
   }
 
   private void rotateRight() {
-    direction = Direction.valueOf(direction).getRight();
+    position.setDirection(Direction.valueOf(position.getDirection()).getRight());
   }
 
   private String lastPosition() {
-    return x + DELIMITER + y + DELIMITER + direction;
+    return position.getX() + DELIMITER + position.getY() + DELIMITER + position.getDirection();
   }
 
   private enum Direction {
-
     N("W", "E"),
     W("S", "N"),
     S("E", "W"),
     E("N", "S");
-
 
     private final String left;
     private final String right;
