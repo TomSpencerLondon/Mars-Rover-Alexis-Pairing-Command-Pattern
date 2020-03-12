@@ -4,26 +4,17 @@ public class Rover {
 
     public static final String DELIMITER = ":";
     private final Position position;
+    private CommandFactory commandFactory;
 
     public Rover(int x, int y, String direction) {
         this.position = new Position(x, y, direction);
+        commandFactory = new CommandFactory();
     }
 
     public String execute(String commands) {
         String[] commandsArray = commands.split("");
         for (String c : commandsArray) {
-
-            CommandFactory commandFactory = new CommandFactory();
-            Command command = commandFactory.create(c);
-            command.execute(position);
-
-//            if (c.equals("L")) {
-//                new RotateLeftCommand().execute(position);
-//            }
-//
-//            if (c.equals("R")) {
-//                new RotateRightCommand().execute(position);
-//            }
+            commandFactory.create(c).execute(position);
         }
 
         return lastPosition();
