@@ -12,4 +12,5 @@ public class RotateLeftCommandShould {
     rotateLeftCommand.execute(position);
     assertEquals("W", position.getDirection());
   }
+
 }

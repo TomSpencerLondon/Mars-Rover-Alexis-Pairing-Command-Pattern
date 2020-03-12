@@ -29,5 +29,6 @@ public class Position {
   }
 
   public void rotateLeft() {
+    direction = Direction.valueOf(direction).getLeft();
   }
 }
