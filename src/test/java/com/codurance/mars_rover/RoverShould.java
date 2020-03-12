@@ -7,23 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RoverShould {
 
-  @Test
-  public void empty_string_returns_starting_position() {
-    Rover rover = new Rover(0, 0, "N");
-    String result = rover.execute("");
-    assertEquals("0:0:N", result);
-  }
-
-  @Test
-  void empty_string_returns_specific_starting_position() {
-    Rover rover = new Rover(1, 1, "W");
-    String result = rover.execute("");
-    assertEquals("1:1:W", result);
+  @ParameterizedTest
+  @CsvSource({
+          "'', 0, 0, N, 0:0:N",
+          "'', 1, 1, W, 1:1:W"
+  })
+  public void empty_string_returns_starting_position(String commands, int x, int y, String direction, String newPosition) {
+    Rover rover = new Rover(x, y, direction);
+    String result = rover.execute(commands);
+    assertEquals(newPosition, result);
   }
 
   @ParameterizedTest
   @CsvSource({
-          "L, 0:0:W"
+          "L, 0:0:W",
+          "LL, 0:0:S",
+          "LLL, 0:0:E",
+          "LLLL,0:0:N",
+          "LLLLL, 0:0:W"
   })
   public void rotate_left(String instructions, String position) {
     Rover rover = new Rover(0, 0, "N");
