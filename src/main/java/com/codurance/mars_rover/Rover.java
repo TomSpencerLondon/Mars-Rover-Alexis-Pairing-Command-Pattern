@@ -15,31 +15,25 @@ public class Rover {
 
   public String execute(String commands) {
     String[] commandsArray = commands.split("");
-    int count = 0;
     for (String c : commandsArray) {
       if (c.equals("L")) {
-        rotateLeft(count);
+        rotateLeft();
       }
 
       if (c.equals("R")) {
-        count = rotateRight(count);
+        rotateRight();
       }
     }
 
     return lastPosition();
   }
 
-  private int rotateRight(int count) {
-    count--;
-    if (count < 0){
-      count = 3;
-    }
-    direction = directions[count];
-    return count;
+  private void rotateLeft() {
+    direction = Direction.valueOf(direction).getLeft();
   }
 
-  private void rotateLeft(int count) {
-    direction = Direction.valueOf(direction).getLeft();
+  private void rotateRight() {
+    direction = Direction.valueOf(direction).getRight();
   }
 
   private String lastPosition() {
