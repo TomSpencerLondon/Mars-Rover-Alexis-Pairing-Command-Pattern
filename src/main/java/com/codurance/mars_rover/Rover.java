@@ -17,15 +17,11 @@ public class Rover {
             }
 
             if (c.equals("R")) {
-                rotateRight();
+                new RotateRightCommand().execute(position);
             }
         }
 
         return lastPosition();
-    }
-
-    private void rotateRight() {
-        position.setDirection(Direction.valueOf(position.getDirection()).getRight());
     }
 
     private String lastPosition() {
