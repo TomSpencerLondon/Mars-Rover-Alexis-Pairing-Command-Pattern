@@ -9,6 +9,6 @@ public class CommandFactory {
         if (type.equals("R")) {
             return new RotateRightCommand();
         }
-        throw new UnsupportedOperationException();
+        return new NullCommand();
     }
 }

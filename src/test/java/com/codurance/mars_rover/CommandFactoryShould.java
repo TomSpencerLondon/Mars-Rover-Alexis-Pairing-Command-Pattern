@@ -22,11 +22,10 @@ public class CommandFactoryShould {
     }
 
     @Test
-    public void throws_unsupported_operation_exception() {
+    public void create_null_command_on_default() {
         CommandFactory commandFactory = new CommandFactory();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            commandFactory.create("Dummy");
-        });
+        Command command = commandFactory.create("Dummy");
+        assertEquals(NullCommand.class, command.getClass());
     }
 
 }

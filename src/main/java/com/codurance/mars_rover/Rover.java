@@ -12,13 +12,18 @@ public class Rover {
     public String execute(String commands) {
         String[] commandsArray = commands.split("");
         for (String c : commandsArray) {
-            if (c.equals("L")) {
-                new RotateLeftCommand().execute(position);
-            }
 
-            if (c.equals("R")) {
-                new RotateRightCommand().execute(position);
-            }
+            CommandFactory commandFactory = new CommandFactory();
+            Command command = commandFactory.create(c);
+            command.execute(position);
+
+//            if (c.equals("L")) {
+//                new RotateLeftCommand().execute(position);
+//            }
+//
+//            if (c.equals("R")) {
+//                new RotateRightCommand().execute(position);
+//            }
         }
 
         return lastPosition();
